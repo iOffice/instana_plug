@@ -24,12 +24,11 @@ defmodule EntryTest do
     end
 
     test "should send a span with the type ENTRY" do
-      result = 
-        :get 
-        |> conn("localhost") 
-        |> put_req_header("x-instana-s", "A") 
-        |> put_req_header("x-instana-t", "C")
-        |> InstanaPlug.Entry.call("elixir-plug")
+      :get 
+      |> conn("localhost") 
+      |> put_req_header("x-instana-s", "A") 
+      |> put_req_header("x-instana-t", "C")
+      |> InstanaPlug.Entry.call("elixir-plug")
       Process.send_after(InstanaPlug.TestClient, {:gimme, self()}, 0)
       assert_receive %{:type => "ENTRY"}
     end

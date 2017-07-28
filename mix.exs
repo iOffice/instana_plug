@@ -14,7 +14,6 @@ defmodule InstanaPlug.Mixfile do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      applications: [:httpoison, :plug],
       extra_applications: [:logger]
     ]
   end
