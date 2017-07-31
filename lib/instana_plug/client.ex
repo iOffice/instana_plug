@@ -5,6 +5,7 @@ defmodule InstanaPlug.Client do
     with {:ok, json} <- Poison.encode(span),
          {:ok, response} <- HTTPoison.post(@instana_url, json, [{"Content-Type", "application/json"}]),
          {:ok, json_body} <- Poison.decode(response.body),
+         IO.inspect(response),
          do: {:ok, Map.put(response, :body, json_body)}
   end
 end

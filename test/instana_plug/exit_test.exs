@@ -21,6 +21,7 @@ defmodule ExitTest do
         |> assign(:span_id, 11)
         |> assign(:trace_id, 10)
         |> InstanaPlug.Exit.call(InstanaPlug.Exit.init(continue_type: :forward))
+        |> send_resp(200, "")
       assert ["C"] == get_req_header(conn, "x-instana-s")
       assert ["A"] == get_req_header(conn, "x-instana-t")
     end

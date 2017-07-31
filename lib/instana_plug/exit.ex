@@ -11,6 +11,15 @@ defmodule InstanaPlug.Exit do
   end
 
   def call(conn, {trace_name, continue_type}) do
+    case continue_type do
+      :forward ->
+        Conn.register_before_send(conn, &do_call(&1, trace_name, continue_type))
+      _ ->
+        do_call(conn, trace_name, continue_type)
+    end
+  end
+
+  defp do_call(conn, trace_name, continue_type) do
     span_id = conn.assigns[:span_id]
     new_span_id = span_id + 1
     trace_id = conn.assigns[:trace_id]
