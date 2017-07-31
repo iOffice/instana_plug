@@ -23,9 +23,9 @@ defmodule InstanaPlug.Util do
       "spanId" => span_id,
       "parentId" => parent_id,
       "traceId" => trace_id,
-      "timestamp": timestamp,
-      "name": name,
-      "type": type
+      "timestamp" => timestamp,
+      "name" => name,
+      "type" => type
     }
   end
 end

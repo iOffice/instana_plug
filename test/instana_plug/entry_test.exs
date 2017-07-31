@@ -30,7 +30,7 @@ defmodule EntryTest do
       |> put_req_header("x-instana-t", "C")
       |> InstanaPlug.Entry.call("elixir-plug")
       Process.send_after(InstanaPlug.TestClient, {:gimme, self()}, 0)
-      assert_receive %{:type => "ENTRY"}
+      assert_receive %{"type" => "ENTRY"}
     end
   end
 end
