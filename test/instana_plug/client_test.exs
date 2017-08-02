@@ -10,8 +10,12 @@ defmodule ClientTest do
     test "actually sends http request" do
       span = span(2, 1, 0, 0, "fake", "FAKE")
       {:ok, response} = submit_span(span)
-      result = response |> Map.get(:body) |> Map.get("json")
-      assert result == span
+      result = 
+        response 
+        |> Map.get(:body) 
+        |> Poison.decode! 
+        |> Map.get("json")
+      assert result == [span]
     end
   end
 end
