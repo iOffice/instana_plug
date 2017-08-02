@@ -14,7 +14,7 @@ defmodule InstanaPlug.Util do
     Integer.to_string(value, 16)
   end
 
-  def span(span_id, parent_id, trace_id, timestamp, name, type) do
+  def span(span_id, parent_id, trace_id, timestamp, name, type, duration \\ 0) do
     # Not sure if these should be hex when sending to instana
     # span_id_hex = Integer.to_string(span_id, 16)
     # parent_id_hex = Integer.to_string(parent_id, 16)
@@ -24,6 +24,7 @@ defmodule InstanaPlug.Util do
       "parentId" => parent_id,
       "traceId" => trace_id,
       "timestamp" => timestamp,
+      "duration" => duration,
       "name" => name,
       "type" => type
     }

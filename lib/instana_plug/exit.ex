@@ -24,8 +24,15 @@ defmodule InstanaPlug.Exit do
     new_span_id = span_id + 1
     trace_id = conn.assigns[:trace_id]
     timestamp = System.system_time(:millisecond)
-    span_data = span(new_span_id, span_id, trace_id, timestamp, trace_name, "EXIT")
-    Task.async(fn -> @instana_client.submit_span(span_data) end)
+    duration = if conn.assigns[:entry_timestamp] do
+      timestamp - conn.assigns[:entry_timestamp]
+    else
+      0
+    end
+    span_data = span(new_span_id, span_id, trace_id, timestamp, trace_name, "EXIT", duration)
+    Task.async(fn -> 
+     @instana_client.submit_span(span_data) |> IO.inspect()
+    end)
     case continue_type do
       :respond ->
         conn

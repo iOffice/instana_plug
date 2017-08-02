@@ -18,5 +18,6 @@ defmodule InstanaPlug.Entry do
     conn
     |> Conn.assign(:span_id, new_span_id)
     |> Conn.assign(:trace_id, trace_id)
+    |> Conn.assign(:entry_timestamp, timestamp)
   end
 end
