@@ -4,11 +4,12 @@ defmodule InstanaPlug.Mixfile do
   def project do
     [
       app: :instana_plug,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      package: package()
     ]
   end
 
@@ -25,13 +26,23 @@ defmodule InstanaPlug.Mixfile do
       {:httpoison, "~> 0.12"},
       {:poison, "~> 3.1"},
       {:plug, "~> 1.0"},
-      {:cowboy, "~> 1.0.0"}
+      {:cowboy, "~> 1.0.0"},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 
   defp aliases do
     [
       test_router: &start_test_router/1
+    ]
+  end
+
+  defp package do
+    [
+      description: "Plugs for reporting trace data to Instana",
+      maintainers: ["Cameron Alexander"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "http://github.com/iOffice/instana_plug"}
     ]
   end
 

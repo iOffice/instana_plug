@@ -2,7 +2,9 @@ defmodule InstanaPlug.Exit do
   alias Plug.Conn
   import InstanaPlug.Util
 
-  @instana_client Application.get_env(:instana_plug, :instana_client, InstanaPlug.Client)
+  def instana_client do
+    Application.get_env(:instana_plug, :instana_client, InstanaPlug.Client)
+  end
 
   def init(opts) do
     trace_name = Keyword.get(opts, :trace_name, "elixir-plug")
@@ -30,7 +32,7 @@ defmodule InstanaPlug.Exit do
       0
     end
     span_data = span(new_span_id, span_id, trace_id, timestamp, trace_name, "EXIT", duration)
-    Task.async(fn -> @instana_client.submit_span(span_data) end)
+    Task.async(fn -> instana_client().submit_span(span_data) end)
     case continue_type do
       :respond ->
         conn
